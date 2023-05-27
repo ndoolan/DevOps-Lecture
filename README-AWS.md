@@ -50,6 +50,16 @@ You are currently signed in with your root account.  This account should only be
 
     - From the Dashboard, you can customize your sign-in link.  If you do, you'll use this new custom name as the Account ID when you log in (before you enter your username and password)
 
+4. #### Create EC2 Instance Profile
+
+    - From the IAM dashboard, create a new *role*
+
+    - This role should be an AWS service entity type with EC2 use case
+
+    - Attach the 'AdministratorAccess-AWSElasticBeanstalk' permission policy
+
+    - Name your role something like aws-elasticbeanstalk-ec2-role
+
 ### Part 3 - Elastic Beanstalk
 
 Great, we have an AWS account!  Let's use it.  We'll start by creating a new application with Elastic Beanstalk, which you'll find in the Services menu dropdown.
@@ -70,6 +80,11 @@ Great, we have an AWS account!  Let's use it.  We'll start by creating a new app
       -  `git archive -v -o myMM.zip --format=zip HEAD`
 
     - Upload this zipped file.
+
+    - On the next page, select the role you created for 'EC2 instance profile'. For the service role, you can select 'Create and use new service role'. If you've created a service role before, you can use an existing service role, but **your service role and EC2 instance profile must not be the same**
+
+    - There are more optional pages after this one, but we can just click 'Skip to review'
+
     - Along with your application, Elastic Beanstalk will automatically generate an environment for you. An *environment* is a collection of AWS resources running an application version. Wait a few minutes while AWS creates an S3 bucket, sets up security groups and spins up your EC2 instance complete with your application running in a docker container.
 
     - Note that upon creating your first application, the default environment name will be something like "[APPLICATION_NAME]-env". For our purposes, this will suffice, however in practice, it's best to name your environments descriptively to something that easily identifies this as the production environment for the megamarkets application. 

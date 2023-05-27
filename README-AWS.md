@@ -52,13 +52,13 @@ You are currently signed in with your root account.  This account should only be
 
 4. #### Create EC2 Instance Profile
 
-    - From the IAM dashboard, create a new *role*
+    - From the IAM dashboard, create a new **role**
 
     - This role should be an AWS service entity type with EC2 use case
 
     - Attach the 'AdministratorAccess-AWSElasticBeanstalk' permission policy
 
-    - Name your role something like aws-elasticbeanstalk-ec2-role
+    - Name your role something like aws-elasticbeanstalk-ec2-role (this is the default name for the Elastic Beanstalk EC2 role)
 
 ### Part 3 - Elastic Beanstalk
 
@@ -81,9 +81,9 @@ Great, we have an AWS account!  Let's use it.  We'll start by creating a new app
 
     - Upload this zipped file.
 
-    - On the next page, select the role you created for 'EC2 instance profile'. For the service role, you can select 'Create and use new service role'. If you've created a service role before, you can use an existing service role, but **your service role and EC2 instance profile must not be the same**
+    - On the next page, select the role you created for 'EC2 instance profile'. For the service role, you can select 'Create and use new service role'. You can use an existing service role if you've already created one on this page, but your service role and EC2 instance profile must **not** be the same.
 
-    - There are more optional pages after this one, but we can just click 'Skip to review'
+    - There are more optional pages after this one, but we can just click 'Skip to review'.
 
     - Along with your application, Elastic Beanstalk will automatically generate an environment for you. An *environment* is a collection of AWS resources running an application version. Wait a few minutes while AWS creates an S3 bucket, sets up security groups and spins up your EC2 instance complete with your application running in a docker container.
 

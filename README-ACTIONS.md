@@ -38,7 +38,7 @@ Each workflow should be stored as an individual YAML file within the `.github/wo
 
 Our integration testing workflow will run our unit tests on any pull requests made to the `main` branch, so that we can ensure the new code passes before merging it in. We'll be instructing GitHub to use our public Docker images to spin up a container and run the tests.
 
-- [ ] Within the `workflows` folder, create a file `build-tests.yml`. This file will define our workflow for testing our build.
+- [ ] Within the `.github/workflows` folder, create a file `build-tests.yml`. This file will define our workflow for testing our build.
 
 - [ ] In this YAML file, you'll first want to define a `name` key. This will be what GitHub displays on its UI when the workflow is running. Let's set its value to `build-tests`.
 
@@ -52,7 +52,7 @@ Our integration testing workflow will run our unit tests on any pull requests ma
 
   - [ ] `steps` defines the sequence of tasks that will make up our job. It will be an array of key-value pairs.
 
-    - [ ] Our first step will make use of a pre-published, reusable Actions workflow called [Checkout](https://github.com/actions/checkout), which checks out our latest commit to the runner's default working directory. This allows our workflow to access it. To use Checkout, we'll include a key called `uses` and set its value to `actions/checkout@v3`.
+    - [ ] Our first step will make use of a pre-published, reusable Actions workflow called [Checkout](https://github.com/actions/checkout), which checks out our latest commit to the runner's default working directory. This allows our workflow to access it. To use Checkout, we'll include a key called `uses` and set its value to `actions/checkout@v4`.
 
     - [ ] Our next step will actually run our tests. It will consist of a `run` key, whose value is the script we want to run. We'll be using `docker-compose` to build our testing container that we configured with our `docker-compose-test.yml` file. We'll add a flag to tell GitHub to abort if we exit from the container.
 
@@ -101,11 +101,11 @@ And that's it! Our access keys are now saved in our repository as secrets. Let's
 
 - Next, we'll add the steps to compete our job. This one will have a few more:
 
-  - [ ] Once again, we'll be using `actions/checkout@v3` to make our repo available to the workflow.
+  - [ ] Once again, we'll be using `actions/checkout@v4` to make our repo available to the workflow.
 
   - [ ] We'll be using a second reusable workflow, [setup-python](https://github.com/actions/setup-python), to install Python for the AWS CLI to use. Our second step will be a dictionary with two keys:
 
-    - `uses`, set to `actions/setup-python@v4`
+    - `uses`, set to `actions/setup-python@v5`
     - `with`, set to another dictionary with a key of `version` and a value of `'3.x'`. This will tell the workflow to use the latest Python 3 release.
 
   - [ ] The AWS CLI requires a specific pre-installed version of pip (Python's package management system), so we'll want to make sure this is up to date. To do this, add another step to `run` the script `python3 -m pip install --upgrade pip`.
@@ -182,7 +182,7 @@ _Remember to swap out any values below in brackets ( [ ] ) with the correspondin
     sed -i='' "s/<VERSION>/$GITHUB_SHA/" Dockerrun.aws.json
     # Zip up our codebase, along with the modified Dockerrun file and our .ebextensions directory
     zip -r mm-prod-deploy.zip Dockerrun.aws.json .ebextensions
-    # Upload the zipped folder to our S3 bucket
+    # Upload the zipped file to our S3 bucket
     aws s3 cp mm-prod-deploy.zip s3://$EB_BUCKET/mm-prod-deploy.zip
     # Create a new application version
     aws elasticbeanstalk create-application-version --application-name [your EB application name] --version-label $GITHUB_SHA --source-bundle S3Bucket=$EB_BUCKET,S3Key=mm-prod-deploy.zip

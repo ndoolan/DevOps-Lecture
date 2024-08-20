@@ -411,7 +411,11 @@ docker buildx build \
 
 In the tags section of your `mm-prod` repository on Docker Hub, you should now see that there are three different images for amd64, arm64, and arm architectures, each with a unique digest.
 
-Now, go ahead and build your `mm-dev` and `mm-postgres` images as well using the above steps. Remember that when building these images, you'll also need to include the `-f` flag to specify which Dockerfiles to use. If successful, you'll now be able to see three different images under all of your repositories in Docker Hub. 
+Now, go ahead and build your `mm-dev` and `mm-postgres` images as well using the above steps. 
+> **IMPORTANT:** When rebuilding these images, you **MUST** include the `-f` flag to specify which Dockerfiles to use. Changing the tag alone is not enough!
+> 
+> This is one of the most common issues during this unit.
+If successful, you'll now be able to see three different images under all of your repositories in Docker Hub. 
 
 ## On to AWS
 

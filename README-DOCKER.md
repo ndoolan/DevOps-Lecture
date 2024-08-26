@@ -413,8 +413,6 @@ In the tags section of your `mm-prod` repository on Docker Hub, you should now s
 
 Now, go ahead and build your `mm-dev` and `mm-postgres` images as well using the above steps. 
 > **IMPORTANT:** When rebuilding these images, you **MUST** include the `-f` flag to specify which Dockerfiles to use. Changing the tag alone is not enough!
-> 
-> This is one of the most common issues during this unit.
 If successful, you'll now be able to see three different images under all of your repositories in Docker Hub. 
 
 ## On to AWS

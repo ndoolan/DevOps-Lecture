@@ -75,7 +75,7 @@ Great, we have an AWS account!  Let's use it.  We'll start by creating a new app
 
       - `Docker running on 64bit Amazon Linux 2`
 
-    - In order to deploy your initial code, you'll need to zip it up into an archive file.  We should use git to do this. Run the following git command locally in the top level of your application's directory:
+    - In order to deploy your initial code, you'll need to zip it up into an archive file.  We should use git to do this. **Note that because we're zipping with git, you must commit your changes to your files before you run this command** Run the following git command locally in the top level of your application's directory:
 
       -  `git archive -v -o myMM.zip --format=zip HEAD`
 

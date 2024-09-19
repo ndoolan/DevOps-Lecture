@@ -1,0 +1,25 @@
+version: '3'
+services:
+  test:
+    image: powerhour/mm-dev
+    container_name: mm-test
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres-db-test
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    command: npm run test
+  postgres-db-test:
+    image: powerhour/mm-postgres
+    container_name: mm-test-database
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=mmadmin
+      - POSTGRES_DB=mmdb
+    volumes:
+      - test-db-volume:/var/lib/postgresql/data
+volumes:
+  node_modules:
+  test-db-volume:

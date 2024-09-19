@@ -1,0 +1,25 @@
+version: '3'
+services:
+  dev:
+    image: powerhour/mm-dev
+    container_name: mm-dev-hot
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres-db
+    volumes:
+      - ./:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    command: npm run dev:hot
+  postgres-db:
+    image: powerhour/mm-postgres
+    container_name: mm-database
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=mmadmin
+      - POSTGRES_DB=mmdb
+    volumes:
+      - dev-db-volume:/var/lib/postgresql/data
+volumes:
+  node_modules:
+  dev-db-volume:
